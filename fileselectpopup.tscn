@@ -1,0 +1,192 @@
+[gd_scene load_steps=9 format=3 uid="uid://c4x6bs0jero3r"]
+
+[ext_resource type="StyleBox" uid="uid://ckdd1s5h3hoey" path="res://panel_ui.tres" id="1_vtv7q"]
+[ext_resource type="PackedScene" uid="uid://vdhrlouvk1a3" path="res://file_thumbnail.tscn" id="2_4ncdd"]
+[ext_resource type="Script" uid="uid://c3t0iky0yxudw" path="res://fileselectpopup.gd" id="2_s3kyd"]
+[ext_resource type="Script" uid="uid://htach7s73ev1" path="res://files_list.gd" id="3_tk2yd"]
+[ext_resource type="Theme" uid="uid://ou2vxvpvh4vc" path="res://ui_theme.tres" id="4_wooou"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tk2yd"]
+size = Vector2(284, 149)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gxbb3"]
+size = Vector2(284, 149)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tk2yd"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.10748, 0.10748, 0.10748, 0.909804)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+anti_aliasing = false
+
+[node name="PanelContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.88
+theme_override_styles/panel = ExtResource("1_vtv7q")
+script = ExtResource("2_s3kyd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_stretch_ratio = 5.7
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Saved Code"
+horizontal_alignment = 1
+
+[node name="Directory" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 12.14
+script = ExtResource("3_tk2yd")
+placeholder_texture = SubResource("PlaceholderTexture2D_tk2yd")
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/Directory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/outline_size = 0
+theme_override_constants/v_separation = 26
+theme_override_constants/icon_margin = 0
+theme_override_constants/h_separation = 33
+theme_override_font_sizes/font_size = 21
+item_count = 2
+max_columns = 6
+icon_mode = 0
+item_0/text = "test"
+item_0/icon = SubResource("PlaceholderTexture2D_gxbb3")
+item_1/text = "test"
+item_1/icon = SubResource("PlaceholderTexture2D_gxbb3")
+
+[node name="Files" type="HFlowContainer" parent="VBoxContainer/Directory"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 40
+alignment = 1
+last_wrap_alignment = 1
+
+[node name="FileItem" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem2" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem3" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem4" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem5" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem6" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem7" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem8" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem9" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem10" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem11" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem12" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem13" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem14" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem15" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem16" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem17" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="FileItem18" parent="VBoxContainer/Directory/Files" instance=ExtResource("2_4ncdd")]
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="PanelContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.08
+theme_override_constants/separation = 17
+
+[node name="ControlsSearch" type="LineEdit" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 19
+theme_override_styles/normal = SubResource("StyleBoxFlat_tk2yd")
+placeholder_text = "Filename..."
+
+[node name="Button" type="Button" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+theme = ExtResource("4_wooou")
+theme_override_font_sizes/font_size = 29
+text = "Save"

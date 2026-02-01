@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://6t5qyydq20r2"]
+
+[ext_resource type="Script" uid="uid://bvsynlv6oi0iv" path="res://fractalcode_editor.gd" id="1_7475l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lshlc"]
+content_margin_left = 20.0
+content_margin_top = 40.0
+content_margin_right = 40.0
+content_margin_bottom = 40.0
+bg_color = Color(0.0392157, 0.0392157, 0.0392157, 0.898039)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="FractalcodeEditor" type="CodeEdit"]
+offset_left = 22.0
+offset_top = 22.0
+offset_right = 811.0
+offset_bottom = 928.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_lshlc")
+text = "// Write any code you like 
+// The renderer will use the fractal function each iteration
+// The following is code for the mandlebrot set
+
+vec2 fractal(highp vec2 z, highp vec2 c){
+	return (cmult(z, z) + c);
+}"
+placeholder_text = "
+"
+caret_blink = true
+symbol_lookup_on_click = true
+symbol_tooltip_on_hover = true
+line_folding = true
+gutters_draw_line_numbers = true
+gutters_zero_pad_line_numbers = true
+gutters_draw_fold_gutter = true
+code_completion_enabled = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+script = ExtResource("1_7475l")

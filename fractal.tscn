@@ -1,0 +1,234 @@
+[gd_scene load_steps=16 format=3 uid="uid://ds6ykq6wp4e1f"]
+
+[ext_resource type="Shader" uid="uid://knt0gs0fnibw" path="res://Shaders/fractal_renderer.gdshader" id="1_o3htp"]
+[ext_resource type="Script" uid="uid://butshpewpkaf6" path="res://main_manager.gd" id="1_t8ky8"]
+[ext_resource type="Script" uid="uid://bf1owj5q47fpf" path="res://fractal_render.gd" id="4_0q4ob"]
+[ext_resource type="Script" uid="uid://cdvr3qd81ks32" path="res://ui.gd" id="4_6ucld"]
+[ext_resource type="Theme" uid="uid://ou2vxvpvh4vc" path="res://ui_theme.tres" id="5_0q4ob"]
+[ext_resource type="Script" uid="uid://cq3xqborcfaos" path="res://fractalcode_editor.gd" id="6_0q4ob"]
+[ext_resource type="Script" uid="uid://dqnfhm7ns0tnl" path="res://tab_container.gd" id="6_nfdbf"]
+[ext_resource type="Script" uid="uid://dbyqwj2t85ctf" path="res://codeoptions.gd" id="7_w6hwd"]
+[ext_resource type="Script" uid="uid://bfphushkcfkio" path="res://controls_editor.gd" id="8_g17on"]
+[ext_resource type="PackedScene" uid="uid://c4x6bs0jero3r" path="res://fileselectpopup.tscn" id="10_ldjan"]
+[ext_resource type="Script" uid="uid://bbst1ceqjdyys" path="res://popups.gd" id="10_qeqqa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0q4ob"]
+shader = ExtResource("1_o3htp")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g17on"]
+content_margin_left = 10.0
+content_margin_top = 15.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0509804, 0.0509804, 0.0509804, 0.909804)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w6hwd"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.0509804, 0.0509804, 0.0509804, 0.909804)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+anti_aliasing = false
+anti_aliasing_size = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ldjan"]
+content_margin_left = 10.0
+content_margin_top = 0.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[node name="Program" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_0q4ob")
+script = ExtResource("1_t8ky8")
+metadata/_edit_use_anchors_ = true
+
+[node name="Renderer" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_0q4ob")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_0q4ob")
+move_speed = 7.4
+zoom_speed = 0.1
+
+[node name="UIRoot" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_6ucld")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="UIRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 750
+
+[node name="MarginContainer" type="MarginContainer" parent="UIRoot/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 15
+
+[node name="TabContainer" type="TabContainer" parent="UIRoot/HSplitContainer/MarginContainer"]
+layout_mode = 2
+current_tab = 0
+script = ExtResource("6_nfdbf")
+tabnames = Array[String](["Code Editor", "Controls"])
+
+[node name="FractalCodeEdit" type="PanelContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g17on")
+metadata/_tab_index = 0
+
+[node name="EditorLayout" type="VBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="PanelContainer" type="PanelContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+theme_override_styles/panel = SubResource("StyleBoxFlat_w6hwd")
+
+[node name="CodeOptions" type="HBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+script = ExtResource("7_w6hwd")
+
+[node name="Save" type="Button" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Save"
+
+[node name="Load" type="Button" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Load"
+
+[node name="Spacer" type="Control" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SectionSelector" type="OptionButton" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.0
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Fractal"
+popup/item_0/id = 0
+popup/item_1/text = "Coloring "
+popup/item_1/id = 1
+popup/item_2/text = "Renderer"
+popup/item_2/id = 2
+popup/item_2/disabled = true
+
+[node name="FractalcodeEditor" type="CodeEdit" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ldjan")
+text = "// Write any code you like 
+// The renderer will use the fractal function each iteration
+// The following is code for the mandlebrot set
+
+vec2 fractal(highp vec2 z, highp vec2 c){
+	return (cmult(z, z) + c);
+}
+
+"
+placeholder_text = "
+"
+caret_blink = true
+code_completion_enabled = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+script = ExtResource("6_0q4ob")
+
+[node name="Controls" type="PanelContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("8_g17on")
+metadata/_tab_index = 1
+
+[node name="ControlsEditor" type="VBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Controls"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ControlsSearch" type="LineEdit" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Controls/ControlsEditor"]
+layout_mode = 2
+placeholder_text = "Search"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Controls/ControlsEditor"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ControlsList" type="VBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Controls/ControlsEditor/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Control" type="Control" parent="UIRoot/HSplitContainer"]
+layout_mode = 2
+
+[node name="Popups" type="Control" parent="UIRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("10_qeqqa")
+
+[node name="MarginContainer" type="MarginContainer" parent="UIRoot/Popups"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_right = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="FileSelect" parent="UIRoot/Popups/MarginContainer" instance=ExtResource("10_ldjan")]
+visible = false
+layout_mode = 2
+size_flags_stretch_ratio = 1.0
+
+[connection signal="pressed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Save" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_save_pressed"]
+[connection signal="pressed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Load" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_load_pressed"]
+[connection signal="item_selected" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/SectionSelector" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_section_selector_item_selected"]
+[connection signal="text_changed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" to="UIRoot" method="_on_fractalcode_changed"]
+[connection signal="text_changed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" method="_on_text_changed"]

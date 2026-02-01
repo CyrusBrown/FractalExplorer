@@ -1,0 +1,46 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://ou2vxvpvh4vc"]
+
+[ext_resource type="StyleBox" uid="uid://ckdd1s5h3hoey" path="res://panel_ui.tres" id="1_touxu"]
+[ext_resource type="StyleBox" uid="uid://cdd150ovqc8k8" path="res://themeing/tab_selected.tres" id="2_2pn01"]
+[ext_resource type="StyleBox" uid="uid://ctvmsnjh8xxb8" path="res://themeing/tab_unselected.tres" id="3_tbeor"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbeor"]
+content_margin_left = 5.0
+content_margin_top = 1.0
+content_margin_right = 5.0
+content_margin_bottom = 1.0
+bg_color = Color(0.113049, 0.113049, 0.113049, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbeor"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mk0s6"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.167451, 0.167451, 0.167451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_touxu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mk0s6"]
+
+[resource]
+Button/styles/normal = SubResource("StyleBoxFlat_tbeor")
+CodeEdit/styles/focus = SubResource("StyleBoxEmpty_tbeor")
+CodeEdit/styles/normal = ExtResource("1_touxu")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_mk0s6")
+PanelContainer/styles/panel = ExtResource("1_touxu")
+TabContainer/constants/side_margin = 11
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_touxu")
+TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_mk0s6")
+TabContainer/styles/tab_hovered = ExtResource("2_2pn01")
+TabContainer/styles/tab_selected = ExtResource("2_2pn01")
+TabContainer/styles/tab_unselected = ExtResource("3_tbeor")

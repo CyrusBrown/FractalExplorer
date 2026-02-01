@@ -1,0 +1,38 @@
+extends Node
+
+
+var control_aliases = {
+	"toggle_ui": "Toggle UI",
+	"reset_view" : "Reset View",
+	"debug_points": "[Debug] Print Points",
+	"toggle_julia": "Toggle Julia",
+	"define_start": "Define Start Point",
+	"draw_points": "Draw Points",
+	"factor_modifier_1": "Speed Modifier Slow",
+	"factor_modifier_2": "Speed Modifier Slower",
+	"factor_modifier_3": "Speed Modifier Slowest",
+	"increase_iter": "Increase Max Iterations",
+	"decrease_iter": "Decrease Max Iterations",
+	"zoom_in_smooth": "Zoom In",
+	"zoom_out_smooth": "Zoom Out",
+	"move_up": "Move Up",
+	"move_left": "Move Left",
+	"move_down": "Move Down",
+	"move_right": "Move Right",
+	"move_start_up": "Move Starting Point Up",
+	"move_start_left": "Move Starting Point Left",
+	"move_start_down": "Move Starting Point Down",
+	"move_start_right": "Move Starting Point Right",
+	"move_julia_up": "Move Julia Point Up",
+	"move_julia_left": "Move Julia Point Left",
+	"move_julia_down": "Move Julia Point Down",
+	"move_julia_right": "Move Julia Point Right",
+	"red_up": "Coloring Red Up",
+	"red_down": "Coloring Red Down",
+	"green_up": "Coloring Green Up",
+	"green_down": "Coloring Green Down",
+	"blue_up": "Coloring Blue Up",
+	"blue_down": "Coloring Blue Down",
+	"earlyescape_up": "Early Escape Radius Up",
+	"earlyescape_down": "Early Escape Radius Down"
+}

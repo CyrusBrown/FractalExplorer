@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://vdhrlouvk1a3"]
+
+[ext_resource type="Theme" uid="uid://ou2vxvpvh4vc" path="res://ui_theme.tres" id="1_l81cn"]
+[ext_resource type="StyleBox" uid="uid://ckdd1s5h3hoey" path="res://panel_ui.tres" id="2_1dxbc"]
+[ext_resource type="Script" uid="uid://2aoc8x22p7dh" path="res://file_thumbnail.gd" id="3_1dxbc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jtdrp"]
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jtdrp"]
+resource_local_to_scene = true
+
+[node name="FileItem" type="PanelContainer"]
+custom_minimum_size = Vector2(324, 216)
+offset_right = 324.0
+offset_bottom = 216.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_l81cn")
+theme_override_styles/panel = ExtResource("2_1dxbc")
+script = ExtResource("3_1dxbc")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+clip_children = 1
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jtdrp")
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/PanelContainer"]
+clip_contents = true
+layout_mode = 2
+theme = ExtResource("1_l81cn")
+texture = SubResource("PlaceholderTexture2D_jtdrp")
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "doozer doozer doozer"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
