@@ -1,0 +1,11 @@
+vec2 fractal(vec2 z, vec2 c){
+        float real_part = z.x;
+		float reverse_rp = 1.0 - real_part;
+		vec2 result;
+        if (real_part < 0.5) {
+            result = cmult(c, vec2(real_part, z.y));
+        } else {
+            result =  cmult(c, vec2(reverse_rp, z.y)); 
+        }
+		return result;
+}

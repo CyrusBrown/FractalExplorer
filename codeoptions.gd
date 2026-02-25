@@ -25,7 +25,7 @@ func get_save_path():
 	elif current_section == 1:
 		return "user://code/coloring"
 	
-func _save_file(filepath):
+func _save_file(filepath, options):
 	if filepath:
 		filepath = filepath + ".dzrcode"
 		var code = editor.text
