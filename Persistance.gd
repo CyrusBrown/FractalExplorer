@@ -19,17 +19,23 @@ func _ready():
 	create_user_data_directory("code")
 	create_user_data_directory("code/fractal")
 	create_user_data_directory("code/coloring")
+	create_user_data_directory("thumbnails")
+	create_user_data_directory("thumbnails/fractal")
+	create_user_data_directory("thumbnails/coloring")
 
 func save_to_file(filename, content):
 	print("saving to file", filename)
 	var file = FileAccess.open(filename, FileAccess.WRITE)
-	var bruh = file.store_string(content)
+	file.store_string(content)
 	file.close()
 	
 func load_from_file(filename):
 	var file = FileAccess.open(filename, FileAccess.READ)
 	var content = file.get_as_text()
 	return content
+
+func save_image_to_file(filename, content):
+	content.save_png(filename)
 	
 func is_legit_filename(filename):
 	if filename.is_empty() or filename.length() > 255:
@@ -56,6 +62,7 @@ func save_fractalcode(codename, code):
 	save_to_file("user://code/fractalcode".path_join(codename), code)
 
 func dir_contents(path):
+	print("SIJ#HWEJIFE ", path)
 	var dir = DirAccess.open(path)
 	var dirs = []
 	var files = []

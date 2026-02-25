@@ -9,18 +9,15 @@ uniform highp vec2 julia_point = vec2(0.0,0.0);    // Camera offset for panning 
 uniform vec3 color_map = vec3(0.0, 2.0, 4.0);
 uniform int fractal_type = 0;
 uniform int define_start = 0;
-//uniform int equation = 0;
+uniform int equation = 0;
 uniform highp vec2 start_position = vec2(0,0);
 uniform float earlyescape = 2.0;
 uniform bool draw_points = true;
-uniform vec2 extra_parameter = vec2(0.0, 0.0);
-uniform bool toggle_earlyescape = true;
 
 uniform int max_iterations = 20;
 
 
 //@#@#FRACTAL_CODE@#@#
-
 
 //@#@#COLOR_CODE@#@#
 
@@ -47,15 +44,15 @@ vec3 compute_fractal(highp float x, highp float y) {
 
     while (iterations < max_iterations) {
         iterations++;
-        if ((length(z) > earlyescape) && (toggle_earlyescape)) {
+        if (length(z) > earlyescape) {
             break;
         } else {
             z = fractal(z, c);
         }
     }
-
-    return vec3(float(iterations), z.x, z.y);
+	return vec3(float(iterations), z.x, z.y);
 }
+
 
 //vec3 compute_newton(highp float x, highp float y) {
 	//int sector = 0;
@@ -68,7 +65,6 @@ vec3 compute_fractal(highp float x, highp float y) {
 
 
 
-
 void fragment() {
     highp float xpos = UV.x;
     highp float ypos = UV.y;
@@ -76,8 +72,6 @@ void fragment() {
 
 	float start_pos_distance = pow((start_position.x - xpos),2) + pow((start_position.y - ypos),2);
 	float julia_distance = pow((julia_point.x - xpos),2) + pow((julia_point.y - ypos),2);
-	float extra_distance = pow((extra_parameter.x - xpos),2) + pow((extra_parameter.y - ypos),2);
-
 
 
 	if (julia_distance < pow((0.05 / zoom),2) && draw_points){
@@ -88,15 +82,10 @@ void fragment() {
 		COLOR = vec4(0,1,0, 1);
 	}
 
-	else if (extra_distance < pow((0.05 / zoom),2) && draw_points){
-		COLOR = vec4(0,0,1, 1);
-	}
-
 	else{
 		result = compute_fractal(xpos, ypos);
 	int iterations = int(result.x);
 	vec2 end_pos = vec2(result.y, result.z);
-	COLOR = get_color(iterations, end_pos, vec2(xpos, ypos));
+	COLOR = get_pixel_color_5(iterations, max_iterations, intensity_fac, color_map, end_pos);
 	}
-
 }

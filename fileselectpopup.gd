@@ -15,6 +15,7 @@ func empty_callback():
 var callback: Callable = empty_callback
 var options = null
 var directory = null
+var thumbnail_directory = null
 #
 #var examples_path = "res://Examples"
 #
@@ -36,8 +37,9 @@ func setup():
 		file_mode = options["file_mode"]
 		callback = options["callback"]
 		directory = options["directory"]
+		thumbnail_directory = options["thumbnail_directory"]
 		print("loading options")
-		directory_list.load_dir(directory)
+		directory_list.load_dir(directory, thumbnail_directory)
 		
 		if file_mode == "select":
 			select_mode_setup()

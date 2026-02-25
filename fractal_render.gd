@@ -4,6 +4,7 @@ extends ColorRect
 @export_range(0, 1, 0.01) var zoom_speed: float
 @export_range (0,1,0.01) var intensity: float = 0.5
 
+@onready var Program = $".."
 
 # good move speed is 7.4
 # good zoom speed is 0.1
@@ -22,30 +23,76 @@ var define_start = 0
 var earlyescape = 2.0
 var draw_points = 1
 var extra_parameter = Vector2(0, 0)
+var toggle_earlyescape = true
 #@export var equations = 3
+
+var uniforms = {}
 
 #15.019
 #8.438
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	material.set_shader_parameter("zoom", zoom_factor)
-	material.set_shader_parameter("sprite_scale", size * 0.008)
-	material.set_shader_parameter("offset", fractal_offset)
-	material.set_shader_parameter("max_iterations", max_iter)
-	material.set_shader_parameter("intensity_fac", intensity)
-	material.set_shader_parameter("julia_point", julia_point)
-	material.set_shader_parameter("color_map", color_map)
-	material.set_shader_parameter("fractal_type", fractal_type)
-	#material.set_shader_parameter("equation", equation)
-	material.set_shader_parameter("start_position", start_position)
-	material.set_shader_parameter("define_start", define_start)
-	material.set_shader_parameter("earlyescape", earlyescape)
-	material.set_shader_parameter("draw_points", draw_points)
-	material.set_shader_parameter("extra_parameter", extra_parameter)
+	uniforms = {
+		"zoom": zoom_factor,
+		"sprite_scale": size * 0.008,
+		"offset": fractal_offset,
+		"max_iterations": max_iter,
+		"intensity_fac": intensity,
+		"julia_point": julia_point,
+		"color_map": color_map,
+		"fractal_type": fractal_type,
+		"start_position": start_position,
+		"define_start": define_start,
+		"earlyescape": earlyescape,
+		"draw_points": draw_points,
+		"extra_parameter": extra_parameter,
+		"toggle_earlyescape": toggle_earlyescape
+	}
+	
+	for uniform_name in uniforms.keys():
+		update_uniform(uniform_name)
+	
+	Program.default_uniforms = uniforms
 
-
-
+func update_uniform(uniform):
+	var value = null
+	match uniform:
+		"zoom": 
+			value = zoom_factor
+		"sprite_scale": 
+			value = size * 0.008
+		"offset": 
+			value = fractal_offset
+		"max_iterations": 
+			value = round(max_iter)
+		"intensity_fac": 
+			value = intensity
+		"julia_point": 
+			value = julia_point
+		"color_map": 
+			value = color_map
+		"fractal_type": 
+			value = fractal_type
+		"start_position": 
+			value = start_position
+		"define_start": 
+			value = define_start
+		"earlyescape": 
+			value = earlyescape
+		"draw_points": 
+			value = draw_points
+		"extra_parameter": 
+			value = extra_parameter
+		"toggle_earlyescape": 
+			value = toggle_earlyescape
+		_:
+			push_warning("Uniform %s not a valid uniform" % uniform)
+			return
+			
+	material.set_shader_parameter(uniform, value)
+	uniforms[uniform] = value
+				
 func _unhandled_input(event: InputEvent) -> void:
 	var mouse_inside
 	if renderer_active:
@@ -59,7 +106,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
 					zoom_factor += zoom_factor * zoom_speed
 					max_iter += log(zoom_factor) * zoom_speed * 1.5
-				material.set_shader_parameter("zoom", zoom_factor)
+				update_uniform("zoom")
 				
 		
 		if event is InputEventKey and event.is_pressed():
@@ -70,10 +117,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				start_position = Vector2(-0,0)
 				earlyescape = 2.0
 				extra_parameter = Vector2(0, 0)
-				material.set_shader_parameter("zoom", zoom_factor)
-				material.set_shader_parameter("offset", fractal_offset)
-				material.set_shader_parameter("max_iterations", max_iter)
-				material.set_shader_parameter("earlyescape", earlyescape)
+				update_uniform("zoom")
+				update_uniform("offset")
+				update_uniform("max_iterations")
+				update_uniform("earlyescape")
 			
 			if event.is_action("debug_points"):
 				print("Julia: ", julia_point)
@@ -82,6 +129,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				print("Extra", extra_parameter)
 				print("Type", fractal_type)
 			
+			if event.is_action("toggle_earlyescape"):
+				toggle_earlyescape = not toggle_earlyescape
 			
 			if event.is_action("toggle_julia"):
 				fractal_type = 1 - fractal_type
@@ -121,16 +170,18 @@ func _unhandled_input(event: InputEvent) -> void:
 					max_iter -= 1
 			
 					
-		#material.set_shader_parameter("equation", equation)
-		material.set_shader_parameter("max_iterations", round(max_iter))
-		material.set_shader_parameter("fractal_type", fractal_type)
-		material.set_shader_parameter("define_start", define_start)
-		material.set_shader_parameter("draw_points", draw_points)
+		#update_uniform("equation", equation)
+		
+		update_uniform("max_iterations")
+		update_uniform("fractal_type")
+		update_uniform("define_start")
+		update_uniform("draw_points")
+		update_uniform("toggle_earlyescape")
 		
 				
 var nudge_factor = 1
 func _process(delta):
-	material.set_shader_parameter("sprite_scale", size * 0.008)
+	update_uniform("sprite_scale")
 	if renderer_active:
 		if Input.is_action_pressed("zoom_out_smooth"):
 			if zoom_factor > 0:
@@ -139,8 +190,8 @@ func _process(delta):
 		if Input.is_action_pressed("zoom_in_smooth"):
 			zoom_factor += zoom_factor *  0.1 / 4.669201  
 			max_iter += log(zoom_factor) *  0.1 / 4.669201 * 3
-		material.set_shader_parameter("zoom", zoom_factor)
-		material.set_shader_parameter("max_iterations", round(max_iter))
+		update_uniform("zoom")
+		update_uniform("max_iterations")
 		
 		if Input.is_action_pressed("move_up"):
 			fractal_offset += Vector2(0,-0.01) / zoom_factor * move_speed
@@ -216,12 +267,12 @@ func _process(delta):
 			earlyescape +=  0.1 / nudge_factor
 		
 			
-		material.set_shader_parameter("start_position", start_position)	
-		material.set_shader_parameter("color_map", color_map)	
-		material.set_shader_parameter("offset", fractal_offset)
-		material.set_shader_parameter("intensity_fac", intensity)
-		material.set_shader_parameter("julia_point", julia_point)
-		material.set_shader_parameter("earlyescape", earlyescape)
-		material.set_shader_parameter("extra_parameter", extra_parameter)
+		update_uniform("start_position")
+		update_uniform("color_map")
+		update_uniform("offset")
+		update_uniform("intensity_fac")
+		update_uniform("julia_point")
+		update_uniform("earlyescape")
+		update_uniform("extra_parameter")
 
 	

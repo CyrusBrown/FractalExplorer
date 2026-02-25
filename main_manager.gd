@@ -3,11 +3,13 @@ extends Control
 @onready var renderer = $Renderer
 @onready var ui = %UIRoot
 @onready var render_shader: Shader = load("res://Shaders/fractal_renderer.gdshader")
+@onready var image_render_shader: Shader = load("res://Shaders/renderer_renderer.gdshader")
 @onready var base_renderer: Shader = load("res://Shaders/fractal_renderer_base.gdshader")
  
 var current_fractalcode: String
 var current_colorcode: String
 var current_fractalcode_filename: String
+var default_uniforms = {}
 
 var ui_open = false
 
@@ -51,10 +53,53 @@ func _inject_renderer(fractalcode, colorcode, force = false):
 	render_shader.code = new_fractalcode
 	if render_shader.get_shader_uniform_list().is_empty() and not force:
 		render_shader.code = current_fractalcode
+		print("FAILED INJECTION")
 		return false
 	else: 
+		print("INJECTED RENDERER")
 		return true
-
+		
+func render_into_image_texture(fractalcode, colorcode, image_size, use_default_uniforms = false):
+	# 1. Create temporary SubViewport and TextureRect
+	var new_viewport = SubViewport.new()
+	new_viewport.size = image_size
+	new_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	
+	var new_rect = TextureRect.new()
+	new_rect.custom_minimum_size = image_size
+	new_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	
+	new_rect.texture = PlaceholderTexture2D.new()
+	new_rect.texture.size = image_size
+	
+	var new_mat = ShaderMaterial.new()
+	new_mat.shader = image_render_shader
+	var current_uniforms = {}
+	if use_default_uniforms:
+		current_uniforms = default_uniforms
+	else:
+		current_uniforms = renderer.uniforms
+	var new_shader = base_renderer.code
+	new_shader = new_shader.replace("//@#@#FRACTAL_CODE@#@#", fractalcode)
+	new_shader = new_shader.replace("//@#@#COLOR_CODE@#@#", colorcode)
+	new_rect.material = new_mat
+	new_mat.shader.code = new_shader
+	
+	print(new_mat.shader.get_shader_uniform_list())
+	for uniform in new_mat.shader.get_shader_uniform_list():
+		new_mat.set_shader_parameter(uniform["name"], current_uniforms[uniform["name"]])
+	
+	new_viewport.add_child(new_rect)
+	add_child(new_viewport)
+	
+	await RenderingServer.frame_post_draw
+	await RenderingServer.frame_post_draw
+	
+	var image: Image = new_viewport.get_texture().get_image()
+	
+	new_viewport.queue_free()
+	
+	return image
 
 func load_fractalcode(new_fractalcode, force = false):
 	var result = _inject_renderer(new_fractalcode, current_colorcode, force)
@@ -76,6 +121,7 @@ func _ready() -> void:
 	ui_open = false
 	renderer.renderer_active = true
 	ui.ui_active = false
+	
 
 func _process(delta: float) -> void:
 	pass
