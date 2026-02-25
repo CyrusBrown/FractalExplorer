@@ -16,11 +16,11 @@ var ui_open = false
 # 2. Code to prevent the GODDAMN margin shifting when switching to double didget line numbers
 # 3. Custom uniforms in fractal code
 # 4. Way to render current view as png
-# 5. Saving/loading fractal equations
+# DONE 5. Saving/loading fractal equations
 # 6. Custom shaderincludes...? to use between multiple files (or editing the functions one)
 # 7. More functions in the functions one
 # 8. Editing main renderer file 
-# 9. Editing color methods
+# DONE 9. Editing color methods
 # 10. Changing move speeds
 # 11. OPTIMIZATION
 # 12. Settings save per equation...?
@@ -36,7 +36,7 @@ var ui_open = false
 # 22. Code editor in another window...?
 # 23. Saved equation picker with thumbnails...?
 # 24. Home screen? Splash screen?
-# 25. Github release
+# DONE 25. Github release
 # 26. Fix formatting issue when binding new key (slight shift)
 # 27. Is the mouse button "all devices" thing gonna mess stuff up
 # 28. Controlling points in gui
@@ -82,7 +82,7 @@ func _process(delta: float) -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed():
-		if event.is_action("toggle_ui"):
+		if event.is_action_pressed("toggle_ui"):
 			ui_open = not ui_open
 			renderer.renderer_active = not ui_open
 			ui.ui_active = ui_open

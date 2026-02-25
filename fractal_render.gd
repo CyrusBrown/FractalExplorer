@@ -13,15 +13,16 @@ var julia_point = Vector2(0,0)
 var zoom_factor = 2
 var fractal_offset = scale / -10
 var max_iter = 35
-var color_map = Vector3(0.0, 2.0, 4.0)
+#var color_map = Vector3(0.0, 2.0, 4.0)
+var color_map = Vector3(0.0, 2.8, 4.8)
 var fractal_type = 0
-var equation = 0
+#var equation = 0
 var start_position = Vector2(-0, 0)
 var define_start = 0
 var earlyescape = 2.0
 var draw_points = 1
 var extra_parameter = Vector2(0, 0)
-@export var equations = 3
+#@export var equations = 3
 
 #15.019
 #8.438
@@ -36,7 +37,7 @@ func _ready() -> void:
 	material.set_shader_parameter("julia_point", julia_point)
 	material.set_shader_parameter("color_map", color_map)
 	material.set_shader_parameter("fractal_type", fractal_type)
-	material.set_shader_parameter("equation", equation)
+	#material.set_shader_parameter("equation", equation)
 	material.set_shader_parameter("start_position", start_position)
 	material.set_shader_parameter("define_start", define_start)
 	material.set_shader_parameter("earlyescape", earlyescape)
@@ -94,16 +95,16 @@ func _unhandled_input(event: InputEvent) -> void:
 				draw_points = 1 - draw_points
 				
 			
-			if event.keycode == KEY_BRACKETRIGHT:
-				equation += 1
-				if equation > equations - 1:
-					equation = 0
-				print(equation)
-			if event.keycode == KEY_BRACKETLEFT:
-				equation -= 1
-				if equation < 0:
-					equation = equations - 1
-				print(equation)
+			#if event.keycode == KEY_BRACKETRIGHT:
+				#equation += 1
+				#if equation > equations - 1:
+					#equation = 0
+				#print(equation)
+			#if event.keycode == KEY_BRACKETLEFT:
+				#equation -= 1
+				#if equation < 0:
+					#equation = equations - 1
+				#print(equation)
 
 			
 				
@@ -120,7 +121,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					max_iter -= 1
 			
 					
-		material.set_shader_parameter("equation", equation)
+		#material.set_shader_parameter("equation", equation)
 		material.set_shader_parameter("max_iterations", round(max_iter))
 		material.set_shader_parameter("fractal_type", fractal_type)
 		material.set_shader_parameter("define_start", define_start)

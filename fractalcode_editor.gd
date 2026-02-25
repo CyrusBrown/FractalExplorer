@@ -14,6 +14,10 @@ func _ready():
 	current_colorcode = default_colorcode
 	self.text = current_fractalcode
 
+func load_code(new_code):
+	self.text = new_code
+	self.emit_signal("text_changed")
+
 func change_section(index):
 	current_section = index
 	match current_section:

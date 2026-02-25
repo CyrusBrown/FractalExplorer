@@ -130,6 +130,17 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Load"
 
+[node name="Examples" type="Button" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Examples
+"
+
+[node name="Spacer" type="Control" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Examples"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+
 [node name="Spacer" type="Control" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -229,6 +240,7 @@ size_flags_stretch_ratio = 1.0
 
 [connection signal="pressed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Save" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_save_pressed"]
 [connection signal="pressed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Load" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_load_pressed"]
+[connection signal="pressed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Examples" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_examples_pressed"]
 [connection signal="item_selected" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/SectionSelector" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_section_selector_item_selected"]
 [connection signal="text_changed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" to="UIRoot" method="_on_fractalcode_changed"]
 [connection signal="text_changed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" method="_on_text_changed"]
