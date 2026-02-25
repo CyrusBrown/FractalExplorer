@@ -99,7 +99,7 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 current_tab = 0
 script = ExtResource("6_nfdbf")
-tabnames = Array[String](["Code Editor", "Controls"])
+tabnames = Array[String](["Code Editor", "Controls", "Image"])
 
 [node name="FractalCodeEdit" type="PanelContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer"]
 layout_mode = 2
@@ -204,6 +204,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
+
+[node name="Image" type="PanelContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="ImageLayout" type="VBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Image"]
+layout_mode = 2
 
 [node name="Control" type="Control" parent="UIRoot/HSplitContainer"]
 layout_mode = 2

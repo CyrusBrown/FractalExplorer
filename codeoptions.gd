@@ -38,6 +38,7 @@ func get_save_path(directory = "code"):
 		print("no current section somehow")
 
 func _save_file(filename, options):
+	filename = filename.get_slice(".", 0)
 	var filepath = filename
 	print("FILENAME ", filename)
 	if filepath:
@@ -98,6 +99,7 @@ func _on_examples_pressed() -> void:
 	var options = {
 		"callback": Callable(self, "_load_file"),
 		"file_mode": "select",
-		"directory": path
+		"directory": path,
+		"thumbnail_directory": thumbnail_path
 	}
 	uiroot.Popups.open_popup("file_select", options)

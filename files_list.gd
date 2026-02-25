@@ -21,8 +21,11 @@ func load_dir(directory, thumbnail_directory):
 	var thumbnail_filenames = {}
 	
 	for file: String in thumbnail_files:
-		var file_name = file.get_file().get_slice(".", 0)
-		thumbnail_filenames[file_name] = thumbnail_directory.path_join(file)
+		var split = file.get_file().split(".")
+		print(split)
+		var file_name = split[0]
+		if split[-1] == "png":
+			thumbnail_filenames[file_name] = thumbnail_directory.path_join(file)
 	print(files)
 	
 	#files = ["user://code/fractalcode/bruh.txt", "user://code/fractalcode/bruh2.txt"]

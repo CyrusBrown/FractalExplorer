@@ -79,14 +79,33 @@ func render_into_image_texture(fractalcode, colorcode, image_size, use_default_u
 		current_uniforms = default_uniforms
 	else:
 		current_uniforms = renderer.uniforms
+		var ratio = current_uniforms["sprite_scale"] / image_size
+		#ratio = ratio / image_size
+		###print(ratio)
+		var zoom_ratio = min(ratio.x, ratio.y)
+		#current_uniforms["zoom"] = current_uniforms["zoom"] * zoom_ratio
+		#
+		##current_uniforms["zoom"] = current_uniforms["zoom"] / zoom_ratio
+		##current_uniforms["offset"] = current_uniforms["offset"] / zoom_ratio
+		##print(current_uniforms["sprite_scale"])
+		##print(current_uniforms["zoom"])
+		##print(current_uniforms["offset"])
+		current_uniforms["sprite_scale"] = image_size * zoom_ratio
+		#current_uniforms["zoom"] = current_uniforms["zoom"] * zoom_ratio * 5
+		#current_uniforms["offset"] = current_uniforms["offset"] / (-5 * zoom_ratio)
+		#print(current_uniforms["zoom"])
+		#print(image_size)
+		#print(current_uniforms["sprite_scale"] / 0.008)
+		#print((current_uniforms["sprite_scale"] / 0.008) / image_size)
+	current_uniforms["draw_points"] = 0
 	var new_shader = base_renderer.code
 	new_shader = new_shader.replace("//@#@#FRACTAL_CODE@#@#", fractalcode)
 	new_shader = new_shader.replace("//@#@#COLOR_CODE@#@#", colorcode)
 	new_rect.material = new_mat
-	new_mat.shader.code = new_shader
+	image_render_shader.code = new_shader
 	
-	print(new_mat.shader.get_shader_uniform_list())
-	for uniform in new_mat.shader.get_shader_uniform_list():
+	print(image_render_shader.get_shader_uniform_list())
+	for uniform in image_render_shader.get_shader_uniform_list():
 		new_mat.set_shader_parameter(uniform["name"], current_uniforms[uniform["name"]])
 	
 	new_viewport.add_child(new_rect)
