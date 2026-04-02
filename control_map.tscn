@@ -6,11 +6,11 @@
 [sub_resource type="LabelSettings" id="LabelSettings_seyox"]
 font_size = 20
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5b170"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_usgbf"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_shl8t"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_usgbf"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5b170"]
 
 [node name="ControlMap" type="HBoxContainer"]
 anchors_preset = 15
@@ -52,9 +52,9 @@ text = "bruh"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_5b170")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_shl8t")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_usgbf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_shl8t")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_5b170")
 disabled = true
 icon = ExtResource("2_shl8t")
 flat = true

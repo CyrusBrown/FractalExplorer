@@ -92,6 +92,38 @@ func update_uniform(uniform):
 			
 	material.set_shader_parameter(uniform, value)
 	uniforms[uniform] = value
+
+func update_variable(variable_name, value):
+	match variable_name:
+		"zoom": 
+			zoom_factor = value
+		"max_iterations":
+			max_iter = value
+		"offset": 
+			fractal_offset = value
+		"julia_point": 
+			julia_point = value
+		"color_map": 
+			color_map = value
+		"fractal_type": 
+			fractal_type = value
+		"start_position": 
+			start_position = value
+		"define_start": 
+			define_start = value
+		"earlyescape": 
+			earlyescape = value
+		"draw_points": 
+			draw_points = value
+		"extra_parameter": 
+			extra_parameter = value
+		"toggle_earlyescape": 
+			toggle_earlyescape = value
+		_:
+			push_warning("Uniform %s not a valid uniform" % variable_name)
+			return
+	update_uniform(variable_name)
+
 				
 func _unhandled_input(event: InputEvent) -> void:
 	var mouse_inside
@@ -194,20 +226,20 @@ func _process(delta):
 		update_uniform("max_iterations")
 		
 		if Input.is_action_pressed("move_up"):
-			fractal_offset += Vector2(0,-0.01) / zoom_factor * move_speed
+			fractal_offset += Vector2(0,0.01) / zoom_factor * move_speed
 		if Input.is_action_pressed("move_left"):
 			fractal_offset += Vector2(-0.01,0) / zoom_factor * move_speed
 		if Input.is_action_pressed("move_down"):
-			fractal_offset += Vector2(0,0.01) / zoom_factor * move_speed
+			fractal_offset += Vector2(0,-0.01) / zoom_factor * move_speed
 		if Input.is_action_pressed("move_right"):
 			fractal_offset += Vector2(0.01,0) / zoom_factor * move_speed
 			
 		if Input.is_action_pressed("move_start_up"):
-			start_position += Vector2(0,-0.01) / zoom_factor * nudge_factor
+			start_position += Vector2(0,0.01) / zoom_factor * nudge_factor
 		if Input.is_action_pressed("move_start_left"):
 			start_position += Vector2(-0.01,0) / zoom_factor * nudge_factor
 		if Input.is_action_pressed("move_start_down"):
-			start_position += Vector2(0,0.01) / zoom_factor * nudge_factor
+			start_position += Vector2(0,-0.01) / zoom_factor * nudge_factor
 		if Input.is_action_pressed("move_start_right"):
 			start_position += Vector2(0.01,0) / zoom_factor * nudge_factor
 
@@ -223,20 +255,20 @@ func _process(delta):
 		
 		if Input.is_action_pressed("extra_parameter"):
 			if Input.is_action_pressed("move_julia_up"):
-				extra_parameter += Vector2(0,-0.01) / zoom_factor * nudge_factor
+				extra_parameter += Vector2(0,0.01) / zoom_factor * nudge_factor
 			if Input.is_action_pressed("move_julia_left"):
 				extra_parameter += Vector2(-0.01,0) / zoom_factor * nudge_factor
 			if Input.is_action_pressed("move_julia_down"):
-				extra_parameter += Vector2(0,0.01) / zoom_factor * nudge_factor
+				extra_parameter += Vector2(0,-0.01) / zoom_factor * nudge_factor
 			if Input.is_action_pressed("move_julia_right"):
 				extra_parameter += Vector2(0.01,0) / zoom_factor * nudge_factor
 		else:
 			if Input.is_action_pressed("move_julia_up"):
-				julia_point += Vector2(0,-0.01) / zoom_factor * nudge_factor
+				julia_point += Vector2(0,0.01) / zoom_factor * nudge_factor
 			if Input.is_action_pressed("move_julia_left"):
 				julia_point += Vector2(-0.01,0) / zoom_factor * nudge_factor
 			if Input.is_action_pressed("move_julia_down"):
-				julia_point += Vector2(0,0.01) / zoom_factor * nudge_factor
+				julia_point += Vector2(0,-0.01) / zoom_factor * nudge_factor
 			if Input.is_action_pressed("move_julia_right"):
 				julia_point += Vector2(0.01,0) / zoom_factor * nudge_factor
 			

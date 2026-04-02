@@ -3,7 +3,8 @@ extends Control
 
 
 @onready var popups = {
-	"file_select": $MarginContainer/FileSelect
+	"file_select": $MarginContainer/FileSelect,
+	"point_select": $PointSelectPopup
 }
 
 var popup_open = false

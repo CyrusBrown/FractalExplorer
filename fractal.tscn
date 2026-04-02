@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ds6ykq6wp4e1f"]
+[gd_scene load_steps=20 format=3 uid="uid://ds6ykq6wp4e1f"]
 
 [ext_resource type="Shader" uid="uid://knt0gs0fnibw" path="res://Shaders/fractal_renderer.gdshader" id="1_o3htp"]
 [ext_resource type="Script" uid="uid://butshpewpkaf6" path="res://main_manager.gd" id="1_t8ky8"]
@@ -9,8 +9,11 @@
 [ext_resource type="Script" uid="uid://dqnfhm7ns0tnl" path="res://tab_container.gd" id="6_nfdbf"]
 [ext_resource type="Script" uid="uid://dbyqwj2t85ctf" path="res://codeoptions.gd" id="7_w6hwd"]
 [ext_resource type="Script" uid="uid://bfphushkcfkio" path="res://controls_editor.gd" id="8_g17on"]
+[ext_resource type="Script" uid="uid://l8uhaqklhr8a" path="res://value_changer.gd" id="10_63fwd"]
 [ext_resource type="PackedScene" uid="uid://c4x6bs0jero3r" path="res://fileselectpopup.tscn" id="10_ldjan"]
 [ext_resource type="Script" uid="uid://bbst1ceqjdyys" path="res://popups.gd" id="10_qeqqa"]
+[ext_resource type="Script" uid="uid://bi2oq2hvsgl3w" path="res://color_picker_button.gd" id="11_vu80r"]
+[ext_resource type="PackedScene" uid="uid://bna8pquc7ckf2" path="res://point_select.tscn" id="13_r8ct8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0q4ob"]
 shader = ExtResource("1_o3htp")
@@ -46,6 +49,9 @@ content_margin_top = 0.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_vu80r"]
+font_size = 22
+
 [node name="Program" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -79,7 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_6ucld")
 
-[node name="HSplitContainer" type="HSplitContainer" parent="UIRoot"]
+[node name="MainUI" type="HSplitContainer" parent="UIRoot"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -88,64 +94,63 @@ grow_horizontal = 2
 grow_vertical = 2
 split_offset = 750
 
-[node name="MarginContainer" type="MarginContainer" parent="UIRoot/HSplitContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UIRoot/MainUI"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 15
 
-[node name="TabContainer" type="TabContainer" parent="UIRoot/HSplitContainer/MarginContainer"]
+[node name="TabContainer" type="TabContainer" parent="UIRoot/MainUI/MarginContainer"]
 layout_mode = 2
 current_tab = 0
 script = ExtResource("6_nfdbf")
-tabnames = Array[String](["Code Editor", "Controls", "Image"])
+tabnames = Array[String](["Code Editor", "Controls", "Values"])
 
-[node name="FractalCodeEdit" type="PanelContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer"]
+[node name="FractalCodeEdit" type="PanelContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_g17on")
 metadata/_tab_index = 0
 
-[node name="EditorLayout" type="VBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit"]
+[node name="EditorLayout" type="VBoxContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit"]
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="PanelContainer" type="PanelContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout"]
+[node name="PanelContainer" type="PanelContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
 theme_override_styles/panel = SubResource("StyleBoxFlat_w6hwd")
 
-[node name="CodeOptions" type="HBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer"]
+[node name="CodeOptions" type="HBoxContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 6
 script = ExtResource("7_w6hwd")
 
-[node name="Save" type="Button" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+[node name="Save" type="Button" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Save"
 
-[node name="Load" type="Button" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+[node name="Load" type="Button" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Load"
 
-[node name="Examples" type="Button" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+[node name="Examples" type="Button" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Examples
 "
 
-[node name="Spacer" type="Control" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Examples"]
-layout_mode = 3
+[node name="Spacer" type="Control" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Examples"]
 anchors_preset = 0
 size_flags_horizontal = 3
 
-[node name="Spacer" type="Control" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+[node name="Spacer" type="Control" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SectionSelector" type="OptionButton" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
+[node name="SectionSelector" type="OptionButton" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_stretch_ratio = 0.0
@@ -160,7 +165,7 @@ popup/item_2/text = "Renderer"
 popup/item_2/id = 2
 popup/item_2/disabled = true
 
-[node name="FractalcodeEditor" type="CodeEdit" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout"]
+[node name="FractalcodeEditor" type="CodeEdit" parent="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ldjan")
@@ -181,39 +186,72 @@ auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("6_0q4ob")
 
-[node name="Controls" type="PanelContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer"]
+[node name="Controls" type="PanelContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer"]
 visible = false
 layout_mode = 2
 script = ExtResource("8_g17on")
 metadata/_tab_index = 1
 
-[node name="ControlsEditor" type="VBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Controls"]
+[node name="ControlsEditor" type="VBoxContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/Controls"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="ControlsSearch" type="LineEdit" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Controls/ControlsEditor"]
+[node name="ControlsSearch" type="LineEdit" parent="UIRoot/MainUI/MarginContainer/TabContainer/Controls/ControlsEditor"]
 layout_mode = 2
 placeholder_text = "Search"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Controls/ControlsEditor"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/Controls/ControlsEditor"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ControlsList" type="VBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Controls/ControlsEditor/ScrollContainer"]
+[node name="ControlsList" type="VBoxContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/Controls/ControlsEditor/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="Image" type="PanelContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer"]
+[node name="ValuesChanger" type="PanelContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
+script = ExtResource("10_63fwd")
 metadata/_tab_index = 2
 
-[node name="ImageLayout" type="VBoxContainer" parent="UIRoot/HSplitContainer/MarginContainer/TabContainer/Image"]
+[node name="Variables" type="VBoxContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Color Map" type="PanelContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger/Variables"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="UIRoot/HSplitContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger/Variables/Color Map"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger/Variables/Color Map/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.27
+text = "Color Map"
+horizontal_alignment = 1
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger/Variables/Color Map/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/outline_size = 0
+flat = true
+edit_alpha = false
+script = ExtResource("11_vu80r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger/Variables"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger/Variables/VBoxContainer"]
+layout_mode = 2
+text = "Points"
+label_settings = SubResource("LabelSettings_vu80r")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="UIRoot/MainUI"]
 layout_mode = 2
 
 [node name="Popups" type="Control" parent="UIRoot"]
@@ -225,6 +263,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("10_qeqqa")
+
+[node name="PointSelectPopup" parent="UIRoot/Popups" instance=ExtResource("13_r8ct8")]
+visible = false
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="UIRoot/Popups"]
 layout_mode = 1
@@ -246,9 +288,13 @@ visible = false
 layout_mode = 2
 size_flags_stretch_ratio = 1.0
 
-[connection signal="pressed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Save" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_save_pressed"]
-[connection signal="pressed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Load" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_load_pressed"]
-[connection signal="pressed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Examples" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_examples_pressed"]
-[connection signal="item_selected" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/SectionSelector" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_section_selector_item_selected"]
-[connection signal="text_changed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" to="UIRoot" method="_on_fractalcode_changed"]
-[connection signal="text_changed" from="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" to="UIRoot/HSplitContainer/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" method="_on_text_changed"]
+[connection signal="ui_closed" from="UIRoot" to="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger" method="_on_ui_root_ui_closed"]
+[connection signal="ui_opened" from="UIRoot" to="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger" method="_on_ui_root_ui_opened"]
+[connection signal="pressed" from="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Save" to="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_save_pressed"]
+[connection signal="pressed" from="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Load" to="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_load_pressed"]
+[connection signal="pressed" from="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/Examples" to="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_examples_pressed"]
+[connection signal="item_selected" from="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions/SectionSelector" to="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/PanelContainer/CodeOptions" method="_on_section_selector_item_selected"]
+[connection signal="text_changed" from="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" to="UIRoot" method="_on_fractalcode_changed"]
+[connection signal="text_changed" from="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" to="UIRoot/MainUI/MarginContainer/TabContainer/FractalCodeEdit/EditorLayout/FractalcodeEditor" method="_on_text_changed"]
+[connection signal="refresh_uniforms" from="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger" to="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger/Variables/Color Map/VBoxContainer/ColorPickerButton" method="_on_values_changer_refresh_uniforms"]
+[connection signal="color_changed" from="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger/Variables/Color Map/VBoxContainer/ColorPickerButton" to="UIRoot/MainUI/MarginContainer/TabContainer/ValuesChanger/Variables/Color Map/VBoxContainer/ColorPickerButton" method="_on_color_changed"]

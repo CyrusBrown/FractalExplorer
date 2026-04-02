@@ -12,8 +12,8 @@ config_version=5
 
 config/name="FractalExplorer"
 run/main_scene="res://fractal.tscn"
-config/features=PackedStringArray("4.4", "Forward Plus")
-boot_splash/show_image=false
+config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/image="uid://dsep011ofwqhi"
 config/icon="res://icon.svg"
 
 [autoload]

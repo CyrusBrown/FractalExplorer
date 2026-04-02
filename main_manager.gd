@@ -36,12 +36,12 @@ var ui_open = false
 # 20. Code completion (fine)
 # 21. Change inputs of coloring method to a dictonary
 # 22. Code editor in another window...?
-# 23. Saved equation picker with thumbnails...?
+# DONE 23. Saved equation picker with thumbnails...?
 # 24. Home screen? Splash screen?
 # DONE 25. Github release
 # 26. Fix formatting issue when binding new key (slight shift)
 # 27. Is the mouse button "all devices" thing gonna mess stuff up
-# 28. Controlling points in gui
+# DONE 28. Controlling points in gui
 # 29. Controlling points in polar form
 	
 	
@@ -58,6 +58,12 @@ func _inject_renderer(fractalcode, colorcode, force = false):
 	else: 
 		print("INJECTED RENDERER")
 		return true
+		
+func get_current_uniforms():
+	return renderer.uniforms
+
+func set_uniform(uniform_name, value):
+	renderer.update_variable(uniform_name, value)
 		
 func render_into_image_texture(fractalcode, colorcode, image_size, use_default_uniforms = false):
 	# 1. Create temporary SubViewport and TextureRect

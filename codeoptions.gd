@@ -38,6 +38,8 @@ func get_save_path(directory = "code"):
 		print("no current section somehow")
 
 func _save_file(filename, options):
+	if not filename:
+		return
 	filename = filename.get_slice(".", 0)
 	var filepath = filename
 	print("FILENAME ", filename)

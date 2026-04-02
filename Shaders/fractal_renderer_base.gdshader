@@ -33,7 +33,7 @@ void vertex() {
 
     // Shift UV back to original range
     UV = centered_uv + vec2(0.5, 0.5);
-
+	UV *= vec2(1, -1);
     // Apply panning offset
     UV += offset;
 }

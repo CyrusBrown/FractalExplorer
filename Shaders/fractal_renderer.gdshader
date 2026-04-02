@@ -17,6 +17,7 @@ uniform bool draw_points = true;
 uniform int max_iterations = 20;
 
 
+
 //@#@#FRACTAL_CODE@#@#
 
 //@#@#COLOR_CODE@#@#
@@ -30,7 +31,7 @@ void vertex() {
 
     // Shift UV back to original range
     UV = centered_uv + vec2(0.5, 0.5);
-
+	UV *= vec2(1, -1);
     // Apply panning offset
     UV += offset;
 }
